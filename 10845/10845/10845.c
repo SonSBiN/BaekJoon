@@ -3,20 +3,19 @@
 #include<string.h>
 
 int queue[10001];
-int n_front = -1;
+int n_front = 0;
 int n_rear = 0;
 int n_size = 0;
+
 void push(int num) {
-	if (n_front == -1) {
-		n_front++;
-	}
 	queue[n_rear] = num;
 	n_size++;
 	n_rear++;
 }
+
 void pop() {
-	if (n_front == n_rear) {
-		printf("-1\n");
+	if (n_size == 0) {
+		printf("%d\n",-1);
 		return;
 	}
 	else {
@@ -28,26 +27,29 @@ void pop() {
 void size() {
 	printf("%d\n", n_size);
 }
+
 void empty() {
-	if (n_front >= n_rear) {
-		printf("1\n");
+	if (n_size == 0) {
+		printf("%d\n",1);
 	}
 	else {
-		printf("0\n");
+		printf("%d\n",0);
 	}
 }
+
 void front() {
-	if (n_front == n_rear) {
-		printf("-1\n");
+	if (n_size == 0) {
+		printf("%d\n",-1);
 		return;
 	}
 	else {
 		printf("%d\n", queue[n_front]);
 	}
 }
+
 void back() {
-	if (n_front == n_rear) {
-		printf("-1\n");
+	if (n_size == 0) {
+		printf("%d\n",-1);
 		return;
 	}
 	else {
@@ -59,7 +61,7 @@ void back() {
 int main(void) {
 	int n;
 
-	scanf("%d\n", &n);
+	scanf("%d", &n);
 	for (int i = 0; i < n; i++) {
 		char temp[10];
 		scanf("%s", temp);
