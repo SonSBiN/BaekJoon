@@ -10,7 +10,7 @@ void push(int num) {
 	if (n_front == -1) {
 		n_front++;
 	}
-	queue[n_front] = num;
+	queue[n_rear] = num;
 	n_size++;
 	n_rear++;
 }
@@ -21,6 +21,7 @@ void pop() {
 	}
 	else {
 		printf("%d\n",queue[n_front]);
+		n_front++;
 		n_size--;
 	}
 }
@@ -50,7 +51,7 @@ void back() {
 		return;
 	}
 	else {
-		printf("%d\n", queue[n_rear]);
+		printf("%d\n", queue[n_rear-1]);
 	}
 }
 
