@@ -1,0 +1,5 @@
+﻿  2210.c
+C:\BackJoon\2210\2210\2210.c(18,3): warning C4033: 'dfs'은(는) 값을 반환해야 합니다.
+C:\BackJoon\2210\2210\2210.c(28,2): warning C4033: 'dfs'은(는) 값을 반환해야 합니다.
+C:\BackJoon\2210\2210\2210.c(30): warning C4716: 'dfs': 값을 반환해야 합니다.
+  2210.vcxproj -> C:\BackJoon\2210\x64\Debug\2210.exe
