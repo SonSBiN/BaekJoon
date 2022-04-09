@@ -1,49 +1,25 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
-#include<time.h>
 
-
-int count;
-int sub[] = {1,2,3};
-
-void dfs(int a,int n) {
-
-	n -= a;
-	for (int i = 0; i < 3; i++)
-	{
-		if (n - sub[i] >= 0 && a != sub[i])
-		{
-			if (n - sub[i] == 0) {
-				count++;
-				return;
-			}
-			dfs(sub[i],n);
-		}
-	}
-}
-
+long long dp[100001][4];
 
 
 int main(void)
 {
+	
 	int t;
 	int n;
 	scanf("%d", &t);
-	/*
-	3
-	4
-	7
-	10
-	*/
-	for (int i = 0; i < t; i++)
-	{
-		count = 0;
+	dp[1][1] = 1; dp[2][2] = 1;
+	dp[3][1] = 1; dp[3][2] = 1; dp[3][3] = 1;
+	for (int i = 4; i <= 100000; i++) {
+		dp[i][1] = (dp[i - 1][2] + dp[i - 1][3]) % 1000000009;
+		dp[i][2] = (dp[i - 2][1] + dp[i - 2][3]) % 1000000009;
+		dp[i][3] = (dp[i - 3][1] + dp[i - 3][2]) % 1000000009;
+	}
+	for (int i = 0; i < t; i++) {
 		scanf("%d", &n);
-		for (int j = 0; j < 3; j++)
-		{
-			dfs(sub[j],n);
-		}
-		printf("%d\n", count);
+		printf("%d\n", (dp[n][1] + dp[n][2] + dp[n][3]) % 1000000009);
 	}
 
 	return 0;
