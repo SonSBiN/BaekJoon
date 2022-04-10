@@ -32,13 +32,6 @@ int dfs(int n,int num,int x, int y) {
 
 int main(void)
 {
-/*
-1 1 1 1 1
-1 1 1 1 1
-1 1 1 1 1
-1 1 1 2 1
-1 1 1 1 1
-*/
 	for (int i = 0; i < 5; i++)
 	{
 		for (int j = 0; j < 5; j++)
