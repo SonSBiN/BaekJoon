@@ -1,0 +1,9 @@
+﻿  1074.c
+C:\BackJoon\1074\1074\1074.c(31,15): warning C4244: '+=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\BackJoon\1074\1074\1074.c(32,25): warning C4244: '함수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\BackJoon\1074\1074\1074.c(36,14): warning C4244: '+=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\BackJoon\1074\1074\1074.c(37,22): warning C4244: '함수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\BackJoon\1074\1074\1074.c(41,14): warning C4244: '+=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\BackJoon\1074\1074\1074.c(42,22): warning C4244: '함수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\BackJoon\1074\1074\1074.c(42,41): warning C4244: '함수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  1074.vcxproj -> C:\BackJoon\1074\x64\Debug\1074.exe
