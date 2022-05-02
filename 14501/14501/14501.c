@@ -13,7 +13,7 @@ int check(int benefit) {
 }
 
 void dfs(int day, int benefit) {
-	if (day > N) {
+	if (day + arr[0][day] > N) {
 		max = check(benefit);
 		return;
 	}
