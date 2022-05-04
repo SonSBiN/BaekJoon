@@ -5,22 +5,18 @@ int arr[2][15];
 int N;
 int max = 0;
 
-int check(int benefit) {
-	if (max >= benefit)
-		return max;
-	else
-		return benefit;
-}
+
 
 void dfs(int day, int benefit) {
-	if (day + arr[0][day] > N) {
-		max = check(benefit);
+	if (day > N) {
 		return;
 	}
-	benefit += arr[1][day];
-	for (int i = 0; i < N - day; i++) {
-		dfs(day + arr[0][day], benefit);
-	}
+	if (benefit > max)
+		max = benefit;
+	if (day == N)
+		return;
+	dfs(day + arr[0][day], benefit + arr[1][day]);
+	dfs(day + 1, benefit);
 }
 
 int main(void) {
@@ -30,9 +26,8 @@ int main(void) {
 	for (int i = 0; i < N; i++) {
 		scanf("%d %d", &arr[0][i], &arr[1][i]);
 	}
-	for (int i = 0; i < N; i++) {
-		dfs(day, benefit);
-	}
+	dfs(day, benefit);
+
 	printf("%d", max);
 
 	return 0;
