@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 
-
 int arr[20][20];
 int min = 100;
 int visit[20];
