@@ -1,86 +1,78 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include<iostream>
-#include<stdio.h>
-#include<vector>
-#include<string>
-
-
+#include <iostream>
+#include <string>
+#include <stdio.h>
+#include <vector>
 using namespace std;
-vector<string> queue;
 
+int map[8][8];
+// r, l, b, t, rt, lt, rb, lb
+int dx[8] = { 0, 0, +1, -1, -1, -1, +1, +1 };
+int dy[8] = { +1, -1, 0, 0, +1, -1, +1, -1 };
+char inputKy, inputSy;
+int inputKx, inputSx, n;
+vector<string> moves;
+int main() {
+	scanf("%c%d %c%d %d", &inputKy, &inputKx, &inputSy, &inputSx, &n);
+	int kx = 8 - inputKx; int ky = inputKy - 'A';
+	int sx = 8 - inputSx; int sy = inputSy - 'A';
 
-int dx[8] = { 1, -1, 0, 0, 1, -1, 1, -1 };
-int dy[8] = { 0, 0, 1, -1, -1, -1, 1, 1 };
-//			  R  L  B  T  RT  LT  RB  LB
-int main(void) {
-
-	char ckx, crx;	//문자열로 받을 킹과 돌의 x좌표 변수
-	int kx, ky, rx, ry;	//체스판에 넣을 킹, 돌의 좌표 변수
-	int N;
-
-	scanf("%c%d %c%d %d", &ckx, &ky, &crx, &ry, &N);
-
-	kx = ckx - 'A';
-	rx = crx - 'A';
-	for (int i = 0; i < N; i++) {
-		string order;
-		cin >> order;
-		queue.push_back(order);
+	for (int i = 0; i < n; i++) {
+		string str; cin >> str;
+		moves.push_back(str);
 	}
+	//이동시키기
+	for (int m = 0; m < n; m++) {
+		string move = moves[m];
+		int i = 0;
+		if (move == "R") {
 
-	for (int i = 0; i < N; i++) {
-		string order = queue[i];
-		int j;
-		if (order == "R") {
-			j = 0;
 		}
-		else if(order == "L") {
-			j = 1;
+		else if (move == "L") {
+			i += 1;
 		}
-		else if (order == "B") {
-			j = 2;
+		else if (move == "B") {
+			i += 2;
 		}
-		else if (order == "T") {
-			j = 3;
+		else if (move == "T") {
+			i += 3;
 		}
-		else if (order == "RT") {
-			j = 4;
+		else if (move == "RT") {
+			i += 4;
 		}
-		else if (order == "LT") {
-			j = 5;
+		else if (move == "LT") {
+			i += 5;
 		}
-		else if (order == "RB") {
-			j = 6;
-		}
-		else if (order == "LB") {
-			j = 7;
+		else if (move == "RB") {
+			i += 6;
 		}
 		else {
-			printf("명령 입력 오류");
+			i += 7;
 		}
+		int nx = kx + dx[i];
+		int ny = ky + dy[i];
 
-		int mx = kx + dx[i];
-		int my = ky + dy[i];
-
-		if(mx < 0 || mx > 7 || my < 0 || my > 7) {
+		//king을 옮겨보고나서 못 옮길 상황이면 건너뛰기
+		if (nx < 0 || nx > 7 || ny < 0 || ny > 7) {
 			continue;
 		}
-		if (mx == rx && my == ry) {
-			int mrx = rx + dx[i];
-			int mry = ry + dy[i];
-			if (mrx < 0 || mrx > 7 || mry < 0 || mry > 7) {
+		//king을 옮긴 뒤 보니까 돌이랑 같이 있다면?
+		if (nx == sx && ny == sy) {
+			int nsx = sx + dx[i];
+			int nsy = sy + dy[i];
+			//돌을 옮겻더니 밖으로 나간다면 건너뛰기
+			if (nsx < 0 || nsx >7 || nsy < 0 || nsy >7) {
 				continue;
 			}
 			else {
-				rx = mrx;
-				ry = mry;
+				//돌 옮기기
+				sx = nsx; sy = nsy;
 			}
 		}
-		kx = mx;
-		ky = my;
+		//king과 돌 모두 건너뛰어지지 않았다면 king 옮기기
+		kx = nx; ky = ny;
 	}
-	printf("%c%d\n", 'A' + ky, kx);
-	printf("%c%d", 'A' + ry, rx);
-
+	printf("%c%d\n", 'A' + ky, 8 - kx);
+	printf("%c%d", 'A' + sy, 8 - sx);
 	return 0;
 }
