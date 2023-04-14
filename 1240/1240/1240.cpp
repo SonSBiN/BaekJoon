@@ -10,26 +10,28 @@ struct Node {
 	int weight;
 };
 
-vector<Node>tree[1000];
+vector<Node>tree[1001];
 vector<int>q;
 int visit[1001] = { 0, };
+int answer[1001] = { 0, };
 int qidx = -1;
-int answer[1001];
 int aidx = 0;
 
 
 void bfs(int src, int dest, int distance) {
 	if (src == dest) {
 		answer[aidx] = distance;
+		aidx++;
 		return;
 	}
 	else if (visit[src] == 1) {
+		visit[src] = 0;
 		return;
 	}
 	else {
 		visit[src] = 1;
 		for (int i = 0; i < int(tree[src].size()); i++) {
-			if (visit[tree[src][i].idx] == 0){
+			if (visit[tree[src][i].idx] == 0) {
 				q.push_back(tree[src][i].idx);
 			}
 		}
@@ -39,6 +41,8 @@ void bfs(int src, int dest, int distance) {
 				bfs(q[qidx], dest, distance + tree[src][i].weight);
 			}
 		}
+		// 예외 케이스 처리
+		visit[src] = 0; // 다른 경로를 찾기 위해 visit을 초기화해준다
 	}
 }
 
@@ -58,11 +62,11 @@ int main(void) {
 		int src;
 		int dst;
 		cin >> src >> dst;
-		bfs(src, dst, 0);
 		q.clear(); // q 초기화
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i <= n; i++) {
 			visit[i] = 0;	//visit 초기화
 		}
+		bfs(src, dst, 0);
 		qidx = -1;	//q 인덱스 초기화
 	}
 	for (int i = 0; i < m; i++) {
@@ -72,10 +76,16 @@ int main(void) {
 }
 
 /*
-4 2
-2 1 2
-4 3 2
-1 4 3
-3 2
-1 2
+5 3
+1 2 1
+2 3 2
+3 4 3
+4 5 4
+2 5
+1 5
+1 3
+
+9
+10
+3
 */
