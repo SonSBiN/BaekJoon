@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<iostream>
 #include<vector>
+#include<queue>
 
 using namespace std;
 
@@ -10,63 +11,68 @@ struct Node {
 	int weight;
 };
 
-vector<Node>tree[1000];
-vector<int>q;
-int visit[1001] = { 0, };
-int qidx = -1;
-int answer[1001];
-int aidx = 0;
+vector<Node>tree[1000];	//tree 생성
+
+bool visit[1001];	//방문 체크
+int ans[1001];	//거리 저장
 
 
-void bfs(int src, int dest, int distance) {
-	if (src == dest) {
-		answer[aidx] = distance;
-		return;
-	}
-	else if (visit[src] == 1) {
-		return;
-	}
-	else {
-		visit[src] = 1;
-		for (int i = 0; i < int(tree[src].size()); i++) {
-			if (visit[tree[src][i].idx] == 0){
-				q.push_back(tree[src][i].idx);
+void bfs(int start, int end) { // bfs로 트리 탐색
+	
+	int dist = 0;
+	queue<int>q;
+	q.push(start);
+	visit[start] = true;
+	while (!q.empty()) {
+		int curr = q.front();
+		int currW = ans[curr];
+		q.pop();
+
+		for (int i = 0; i < (int)tree[curr].size(); i++) {
+			int next = tree[curr][i].idx;
+			int nextW = tree[curr][i].weight;
+			if (visit[next]) {
+				continue;
 			}
-		}
-		for (int i = 0; i < int(tree[src].size()); i++) {
-			if (visit[tree[src][i].idx] == 0) {
-				qidx++;
-				bfs(q[qidx], dest, distance + tree[src][i].weight);
+			ans[next] = currW + nextW;
+			if (end == next) {
+				goto print;
 			}
+			visit[next] = true;
+			q.push(next);
 		}
 	}
+	print:
+	cout << ans[end] << "\n";
 }
 
 int main(void) {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
 	int n;
 	int m;
+	cin >> n >> m;
+
 	int node1;
 	int node2;
 	int dist;
-	cin >> n >> m;
-	for (int i = 0; i < n-1; i++) {
+
+	for (int i = 0; i < n-1; i++) { //트리 생성
+		
 		cin >> node1 >> node2 >> dist;
 		tree[node1].push_back({ node2,dist });
 		tree[node2].push_back({ node1,dist });
 	}
-	for (int i = 0; i < m; i++) {
-		int src;
-		int dst;
-		cin >> src >> dst;
-		bfs(src, dst, 0);
-		q.clear(); // q 초기화
-		for (int i = 0; i < n; i++) {
-			visit[i] = 0;	//visit 초기화
+
+	for (int i = 0; i < m; i++) {	//케이스 별로 bfs 실행
+		for (int i = 0; i <= n; i++) {
+			visit[i] = false;	//visit 초기화
+			ans[i] = 0;	//answer 초기화
 		}
-		qidx = -1;	//q 인덱스 초기화
-	}
-	for (int i = 0; i < m; i++) {
-		cout << answer[i] << "\n";
+		cin >> node1 >> node2;
+		bfs(node1, node2); 
 	}
 	return 0;
 }
