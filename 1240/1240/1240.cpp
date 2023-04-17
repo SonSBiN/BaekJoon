@@ -18,7 +18,7 @@ int ans[1001];	//거리 저장
 
 
 void bfs(int start, int end) { // bfs로 트리 탐색
-	
+
 	int dist = 0;
 	queue<int>q;
 	q.push(start);
@@ -42,7 +42,7 @@ void bfs(int start, int end) { // bfs로 트리 탐색
 			q.push(next);
 		}
 	}
-	print:
+print:
 	cout << ans[end] << "\n";
 }
 
@@ -59,8 +59,8 @@ int main(void) {
 	int node2;
 	int dist;
 
-	for (int i = 0; i < n-1; i++) { //트리 생성
-		
+	for (int i = 0; i < n - 1; i++) { //트리 생성
+
 		cin >> node1 >> node2 >> dist;
 		tree[node1].push_back({ node2,dist });
 		tree[node2].push_back({ node1,dist });
@@ -72,7 +72,7 @@ int main(void) {
 			ans[i] = 0;	//answer 초기화
 		}
 		cin >> node1 >> node2;
-		bfs(node1, node2); 
+		bfs(node1, node2);
 	}
 	return 0;
 }
